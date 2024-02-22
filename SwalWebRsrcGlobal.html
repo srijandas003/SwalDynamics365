@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style>
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-image: url('https://source.unsplash.com/random/2000x1000');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+        }
+
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .custom-swal-font {
+            font-family: "Lucida Console", "Courier New", monospace;
+
+        }
+
+        .swal2-image {
+            margin-top: 3px !important;
+            margin-right: 3px !important;
+            margin-left: 3px !important;
+        }
+
+        .swal2-title {
+            margin-top: 0px !important;
+        }
+
+        .custom-title {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .custom-text {
+            
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <div class="background-container"></div>
+
+    <script>
+        function showAlert(accountName) {
+
+
+            fetch(`https://g.tenor.com/v1/search?q=random&key=LIVDSRZULELA&limit=50`).then((res) => {
+                return res.json()
+            }).then((data) => {
+                var obj = data.results[Math.ceil(Math.random() * 49)];
+                var str = obj.media[0].gif.url;
+                Swal.fire({
+                    title: "<div class='custom-title'>Welcome back " + accountName + "!</div>",
+                    imageUrl: str || './gallery/random.jpg',
+                    html: "<div class='custom-text'>This is a random generated image, Explicit Content may appear</div>",
+                    imageWidth: 393,
+                    imageHeight: 150,
+                    imageAlt: "Loading...",
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    width: '400px',
+                    height: '150px',
+                    customClass: {
+                        popup: 'custom-swal-font'
+                    },
+                    padding: '3em',
+                    color: '#716add',
+                    background: '#fff url(./gallery/O9FG4W0.jpg)',
+                    backdrop: `
+                rgba(218, 218, 233, 0.72)`,
+
+                })
+            });
+        }
+
+        function setClientApiContext(xrm, formContext) {
+            window.Xrm = xrm;
+            window.formContext = formContext;
+            var accountName = formContext.getAttribute("firstname").getValue();
+            showAlert(accountName);
+        }
+
+    </script>
+</body>
+
+</html>
